@@ -28,6 +28,7 @@ class CBFController(CLFController):
         cbf_lambda: float = 1.0,
         cbf_relaxation_penalty: float = 50.0,
         controller_period: float = 0.01,
+        disable_gurobi: bool = False,
     ):
         """Initialize the controller.
 
@@ -38,6 +39,7 @@ class CBFController(CLFController):
             cbf_lambda: scaling factor for the CBF
             cbf_relaxation_penalty: the penalty for relaxing CLF conditions.
             controller_period: the timestep to use in simulating forward Vdot
+            disable_gurobi: if True, disable Gurobi for evaluation.
         """
         super(CBFController, self).__init__(
             dynamics_model=dynamics_model,
@@ -46,6 +48,7 @@ class CBFController(CLFController):
             clf_lambda=cbf_lambda,
             clf_relaxation_penalty=cbf_relaxation_penalty,
             controller_period=controller_period,
+            disable_gurobi=disable_gurobi,
         )
 
     def V_with_jacobian(self, x: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:

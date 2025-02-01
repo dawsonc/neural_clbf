@@ -47,6 +47,7 @@ class NeuralCBFController(pl.LightningModule, CBFController):
         scale_parameter: float = 10.0,
         learn_shape_epochs: int = 0,
         use_relu: bool = False,
+        disable_gurobi: bool = False,
     ):
         """Initialize the controller.
 
@@ -64,6 +65,7 @@ class NeuralCBFController(pl.LightningModule, CBFController):
             scale_parameter: normalize non-angle data points to between +/- this value.
             learn_shape_epochs: number of epochs to spend just learning the shape
             use_relu: if True, use a ReLU network instead of Tanh
+            disable_gurobi: if True, gurobi will not be used during evaluation.
         """
         super(NeuralCBFController, self).__init__(
             dynamics_model=dynamics_model,
@@ -72,6 +74,7 @@ class NeuralCBFController(pl.LightningModule, CBFController):
             cbf_lambda=cbf_lambda,
             cbf_relaxation_penalty=cbf_relaxation_penalty,
             controller_period=controller_period,
+            disable_gurobi=disable_gurobi,
         )
         self.save_hyperparameters()
 
